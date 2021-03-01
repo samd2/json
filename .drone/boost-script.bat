@@ -15,10 +15,7 @@ rm -rf boost-ci-cloned
 for /F %%i in ("%DRONE_REPO%") do @set SELF=%%~nxi
 echo SELF is %SELF%
 SET BOOST_CI_TARGET_BRANCH=%DRONE_COMMIT_BRANCH%
-echo BOOST_CI_TARGET_BRANCH is %BOOST_CI_TARGET_BRANCH%
-pwd > tmpFile
-SET /p BOOST_CI_SRC_FOLDER= < tmpFile
-DEL tmpFile
+SET BOOST_CI_SRC_FOLDER=%cd%
 echo BOOST_CI_SRC_FOLDER is %BOOST_CI_SRC_FOLDER%
 
 ci\common_install.bat
