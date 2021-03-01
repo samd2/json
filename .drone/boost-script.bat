@@ -20,7 +20,7 @@ SET BOOST_CI_SRC_FOLDER=%cd%
 echo BOOST_CI_SRC_FOLDER is %BOOST_CI_SRC_FOLDER%
 
 echo "Outside of common_install.bat. Starting."
-ci\common_install.bat
+call ci\common_install.bat
 echo "Outside of common_install.bat. Ending."
 
 echo '==================================> COMPILE'
