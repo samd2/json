@@ -27,4 +27,4 @@ echo '==================================> COMPILE'
 
 REM $BOOST_ROOT/libs/$SELF/ci/travis/build.sh
 
-call %BOOST_ROOT%\libs\%SELF%\ci\travis\build.bat
+call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
