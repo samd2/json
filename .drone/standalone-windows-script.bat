@@ -3,8 +3,8 @@ echo '==================================> BEFORE_INSTALL'
 
 echo '==================================> INSTALL'
 
-# Installing cmake with choco in the Dockerfile, so not required here:
-# choco install cmake
+REM Installing cmake with choco in the Dockerfile, so not required here:
+REM choco install cmake
 
 echo '==================================> COMPILE'
 
@@ -15,8 +15,8 @@ cmake -DBOOST_JSON_STANDALONE=1 ..
 cmake --build .
 ctest -V -C Debug .
 set CXXFLAGS="/std:c++latest"
-mkdir ../__build_2a
-cd ../__build_2a
+mkdir ..\__build_2a
+cd ..\__build_2a
 cmake -DBOOST_JSON_STANDALONE=1 ..
 cmake --build .
 ctest -V -C Debug .
