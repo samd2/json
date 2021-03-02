@@ -160,10 +160,10 @@ def windows_cxx(name, cxx="", cxxflags="", packages="", llvm_os="", llvm_ver="",
         "commands": [
           "echo '==================================> SETUP'",
           "echo '==================================> PACKAGES'",
-          '.drone\\\\windows-msvc-install.bat',
+          '.drone\\\windows-msvc-install.bat',
 
           "echo '==================================> INSTALL AND COMPILE'",
-          '.drone\\\\%s-script.bat' % buildtype,
+          '.drone\\\%s-script.bat' % buildtype,
         ]
       }
     ]
