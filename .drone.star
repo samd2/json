@@ -146,7 +146,7 @@ def windows_cxx(name, cxx="", cxxflags="", packages="", llvm_os="", llvm_ver="",
   return {
     "name": "Windows %s" % name,
     "kind": "pipeline",
-    "node": "servername:windowsdronerunner2",
+    "node": {"servername": "windowsdronerunner2"},
     "type": "docker",
     "trigger": { "branch": [ "master","develop", "drone", "bugfix/*", "feature/*", "fix/*", "pr/*" ] },
     "platform": {
