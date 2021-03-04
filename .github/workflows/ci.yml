@@ -645,105 +645,51 @@ jobs:
           TRAVIS_BRANCH: ${{ github.base_ref }}
           TRAVIS_OS_NAME: "windows"
         run: |
-          echo '==================================> SETUP'
-          echo '==================================> PACKAGES'
-          echo '==================================> INSTALL AND COMPILE'
-          set -e
-          export TRAVIS_BUILD_DIR=$(pwd)
-          export TRAVIS_BRANCH=${TRAVIS_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
-          export VCS_COMMIT_ID=$GITHUB_SHA
-          export GIT_COMMIT=$GITHUB_SHA
-          export REPO_NAME=$(basename $GITHUB_REPOSITORY)
-          export USER=$(whoami)
-          export CC=${CC:-gcc}
-          export PATH=~/.local/bin:/usr/local/bin:$PATH
 
-          if [ "$JOB_BUILDTYPE" == "boost" ]; then
+          if %$JOB_BUILDTYPE% EQU "boost" (
 
           echo '==================================> INSTALL'
-
+          
           git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
           cp -prf boost-ci-cloned/ci .
           rm -rf boost-ci-cloned
+          REM source ci/travis/install.sh
+          REM The contents of install.sh below:
+          
+          for /F %%i in ("%DRONE_REPO%") do @set SELF=%%~nxi
+          SET BOOST_CI_TARGET_BRANCH=%DRONE_COMMIT_BRANCH%
+          SET BOOST_CI_SRC_FOLDER=%cd%
+          
+          call ci\common_install.bat
+          
+          echo '==================================> COMPILE'
+          
+          call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
 
-          if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-              unset -f cd
-          fi
+          )
 
-          export SELF=`basename $REPO_NAME`
-          export BOOST_CI_TARGET_BRANCH="$TRAVIS_BRANCH"
-          export BOOST_CI_SRC_FOLDER=$(pwd)
+          elseif %JOB_BUILDTYPE% EQU "standalone-windows" (
 
-          . ./ci/common_install.sh
-
-          echo '==================================> SCRIPT'
-
-          $BOOST_ROOT/libs/$SELF/ci/travis/build.sh
-
-          elif [ "$JOB_BUILDTYPE" == "7f430b0733-46b8730a3b" ]; then
-
+          echo '==================================> BEFORE_INSTALL'
+          
           echo '==================================> INSTALL'
-
-          choco install cmake -y
-
-          echo '==================================> SCRIPT'
-
-          export CXXFLAGS="/std:c++17"
+          
+          REM Installing cmake with choco in the Dockerfile, so not required here:
+          REM choco install cmake
+          
+          echo '==================================> COMPILE'
+          
+          set CXXFLAGS="/std:c++17"
           mkdir __build_17
           cd __build_17
           cmake -DBOOST_JSON_STANDALONE=1 ..
           cmake --build .
           ctest -V -C Debug .
-          export CXXFLAGS="/std:c++latest"
-          mkdir ../__build_2a
-          cd ../__build_2a
+          set CXXFLAGS="/std:c++latest"
+          mkdir ..\__build_2a
+          cd ..\__build_2a
           cmake -DBOOST_JSON_STANDALONE=1 ..
           cmake --build .
           ctest -V -C Debug .
 
-          elif [ "$JOB_BUILDTYPE" == "5fcf6a8e43-15f8413deb" ]; then
-
-          echo '==================================> INSTALL'
-
-          choco install visualstudio2019-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.14.24.x86.x64" -y
-          git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
-          cp -prf boost-ci-cloned/ci .
-          rm -rf boost-ci-cloned
-
-          if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-              unset -f cd
-          fi
-
-          export SELF=`basename $REPO_NAME`
-          export BOOST_CI_TARGET_BRANCH="$TRAVIS_BRANCH"
-          export BOOST_CI_SRC_FOLDER=$(pwd)
-
-          . ./ci/common_install.sh
-
-          echo '==================================> SCRIPT'
-
-          $BOOST_ROOT/libs/$SELF/ci/travis/build.sh
-
-          elif [ "$JOB_BUILDTYPE" == "83f626a701-46b8730a3b" ]; then
-
-          echo '==================================> INSTALL'
-
-          choco install cmake -y
-          choco install visualstudio2019-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.14.24.x86.x64" -y
-
-          echo '==================================> SCRIPT'
-
-          export CXXFLAGS="/std:c++17"
-          mkdir __build_17
-          cd __build_17
-          cmake -DBOOST_JSON_STANDALONE=1 ..
-          cmake --build .
-          ctest -V -C Debug .
-          export CXXFLAGS="/std:c++latest"
-          mkdir ../__build_2a
-          cd ../__build_2a
-          cmake -DBOOST_JSON_STANDALONE=1 ..
-          cmake --build .
-          ctest -V -C Debug .
-
-          fi
+         )
