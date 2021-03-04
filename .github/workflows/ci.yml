@@ -691,5 +691,4 @@ jobs:
           cmake -DBOOST_JSON_STANDALONE=1 ..
           cmake --build .
           ctest -V -C Debug .
-
-         )
+          )
