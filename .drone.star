@@ -64,7 +64,7 @@ def main(ctx):
     # linux_cxx("asan", "clang++-11", packages=" ".join(addon_clang_11["apt"]["packages"]), image="ubuntu:16.04", llvm_os="xenial", llvm_ver="11", buildtype="boost", environment={"COMMENT": "asan", "B2_VARIANT": "debug", "B2_TOOLSET": "clang-11", "B2_CXXSTD":"17", "B2_ASAN": "1", "B2_DEFINES": "BOOST_NO_STRESS_TEST=1"}, privileged=True),
     # linux_cxx("ubsan", "clang++-11", packages=" ".join(addon_clang_11["apt"]["packages"]), llvm_os="bionic", llvm_ver="11", buildtype="boost", environment={"COMMENT": "asan", "B2_VARIANT": "debug", "B2_TOOLSET": "clang-11", "B2_CXXSTD":"17", "B2_UBSAN": "1", "B2_DEFINES": "BOOST_NO_STRESS_TEST=1" }),
     # linux_cxx("Intel", "", packages="g++-7 cmake build-essential pkg-config", buildtype="intel", environment={"COMMENT": "Intel oneAPI Toolkit", "B2_TOOLSET": "intel-linux", "B2_CXXSTD": "11,14,17", "B2_FLAGS": "warnings=on warnings-as-errors=off" }),
-    windows_cxx("msvc-14.0", "", image="cppalliance/dronevs2015", buildtype="boost-2015", environment={"B2_TOOLSET": "msvc-14.1", "B2_CXXSTD": "11,14"}),
+    windows_cxx("msvc-14.0", "", image="cppalliance/dronevs2015", buildtype="boost-2015", environment={"B2_TOOLSET": "msvc-14.0", "B2_CXXSTD": "11,14"}),
     windows_cxx("msvc-14.0 standalone", "msvc-14.0", image="cppalliance/dronevs2015", buildtype="standalone-windows-2015", environment={"COMMENT": "standalone","CXX": "msvc-14.0"}),
     windows_cxx("msvc-14.1", "", image="cppalliance/dronevs2017", buildtype="boost", environment={"B2_TOOLSET": "msvc-14.1", "B2_CXXSTD": "11,14,17"}),
     windows_cxx("msvc-14.1 standalone", "msvc-14.1", image="cppalliance/dronevs2017", buildtype="standalone-windows", environment={"COMMENT": "standalone","CXX": "msvc-14.1"}),
@@ -146,6 +146,7 @@ def windows_cxx(name, cxx="", cxxflags="", packages="", llvm_os="", llvm_ver="",
   return {
     "name": "Windows %s" % name,
     "kind": "pipeline",
+    "node": "servername:windowsdronerunner2",
     "type": "docker",
     "trigger": { "branch": [ "master","develop", "drone", "bugfix/*", "feature/*", "fix/*", "pr/*" ] },
     "platform": {
