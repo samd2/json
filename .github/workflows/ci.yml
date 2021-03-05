@@ -509,6 +509,9 @@ jobs:
 
           echo '==================================> INSTALL'
 
+          echo "Running dpkg"
+          dpkg -l 
+
           git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
           cp -prf boost-ci-cloned/ci .
           rm -rf boost-ci-cloned
@@ -646,7 +649,7 @@ jobs:
           TRAVIS_OS_NAME: "windows"
         run: |
 
-          if %$JOB_BUILDTYPE% EQU "boost" (
+          if %JOB_BUILDTYPE% EQU "boost" (
 
           echo '==================================> INSTALL'
           
