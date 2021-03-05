@@ -651,6 +651,7 @@ jobs:
 
           if %JOB_BUILDTYPE% EQU "boost" (
 
+          echo "Running boost job"
           echo '==================================> INSTALL'
           
           git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
@@ -669,10 +670,9 @@ jobs:
           
           call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
 
-          )
+          ) else if %JOB_BUILDTYPE% EQU "standalone-windows" (
 
-          else if %JOB_BUILDTYPE% EQU "standalone-windows" (
-
+          echo "Running standalone-windows"
           echo '==================================> BEFORE_INSTALL'
           
           echo '==================================> INSTALL'
