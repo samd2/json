@@ -586,7 +586,7 @@ jobs:
             buildtype: "boost"
             packages: ""
             os: "windows-2016"
-            cxx: "g++"
+            cxx: ""
             sources: ""
             llvm_os: ""
             llvm_ver: ""
@@ -605,7 +605,7 @@ jobs:
             buildtype: "5fcf6a8e43-15f8413deb"
             packages: ""
             os: "windows-2019"
-            cxx: "g++"
+            cxx: ""
             sources: ""
             llvm_os: ""
             llvm_ver: ""
@@ -671,7 +671,7 @@ jobs:
 
           )
 
-          elseif %JOB_BUILDTYPE% EQU "standalone-windows" (
+          else if %JOB_BUILDTYPE% EQU "standalone-windows" (
 
           echo '==================================> BEFORE_INSTALL'
           
