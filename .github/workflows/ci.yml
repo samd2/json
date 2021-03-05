@@ -649,6 +649,15 @@ jobs:
           TRAVIS_OS_NAME: "windows"
         run: |
 
+          @ECHO ON
+          setlocal enabledelayedexpansion
+
+          echo JOB_BUILDTYPE is %JOB_BUILDTYPE%
+
+          if %JOB_BUILDTYPE% EQU boost (
+              echo "here1"
+              )
+
           if %JOB_BUILDTYPE% EQU "boost" (
 
           echo "Running boost job"
