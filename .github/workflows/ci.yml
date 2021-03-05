@@ -649,7 +649,8 @@ jobs:
           @ECHO ON
           setlocal enabledelayedexpansion
           REM fix later:
-          SET GHA_TARGET_BRANCH="develop"
+          SET GHA_TARGET_BRANCH=develop
+          echo GHA_TARGET_BRANCH is %GHA_TARGET_BRANCH%
 
           echo JOB_BUILDTYPE is %JOB_BUILDTYPE%
 
@@ -671,9 +672,12 @@ jobs:
           for /F %%i in ("%GITHUB_REPOSITORY%") do @set SELF=%%~nxi
           echo SELF is %SELF%
           SET BOOST_CI_TARGET_BRANCH=%GHA_TARGET_BRANCH%
+          set BOOST_CI_TARGET_BRANCH=%GHA_TARGET_BRANCH%
           echo BOOST_CI_TARGET_BRANCH is %BOOST_CI_TARGET_BRANCH%
           SET BOOST_CI_SRC_FOLDER=%cd%
-          echo BOOST_CI_TARGET_BRANCH is %BOOST_CI_TARGET_BRANCH% 
+          echo BOOST_CI_SRC_FOLDER is %BOOST_CI_SRC_FOLDER% 
+          setx XXXVAR "hello"
+          echo XXXVAR is %XXXVAR%
           
           call ci\common_install.bat
           
