@@ -648,6 +648,8 @@ jobs:
 
           @ECHO ON
           setlocal enabledelayedexpansion
+          REM fix later:
+          SET GHA_TARGET_BRANCH="develop"
 
           echo JOB_BUILDTYPE is %JOB_BUILDTYPE%
 
@@ -666,9 +668,12 @@ jobs:
           REM source ci/travis/install.sh
           REM The contents of install.sh below:
           
-          for /F %%i in ("%DRONE_REPO%") do @set SELF=%%~nxi
-          SET BOOST_CI_TARGET_BRANCH=%DRONE_COMMIT_BRANCH%
+          for /F %%i in ("%GITHUB_REPOSITORY%") do @set SELF=%%~nxi
+          echo SELF is %SELF%
+          SET BOOST_CI_TARGET_BRANCH=%GHA_TARGET_BRANCH%
+          echo BOOST_CI_TARGET_BRANCH is %BOOST_CI_TARGET_BRANCH%
           SET BOOST_CI_SRC_FOLDER=%cd%
+          echo BOOST_CI_TARGET_BRANCH is %BOOST_CI_TARGET_BRANCH% 
           
           call ci\common_install.bat
           
