@@ -642,15 +642,21 @@ jobs:
           VALGRIND_OPTS: ${{ matrix.valgrind_opts }}
           B2_ASAN: ${{ matrix.b2_asan }}
           B2_UBSAN: ${{ matrix.b2_ubsan }}
+          GHA_TARGET_BRANCH: ${{ github.base_ref }}
           TRAVIS_BRANCH: ${{ github.base_ref }}
           TRAVIS_OS_NAME: "windows"
         run: |
 
           @ECHO ON
           setlocal enabledelayedexpansion
-          REM fix later:
-          SET GHA_TARGET_BRANCH=develop
+
+          IF "!GHA_TARGET_BRANCH!" == "" (
+              for /F %%i in ("!GITHUB_REF!") do @set GHA_TARGET_BRANCH=%%~nxi
+              for /F %%i in ("!GITHUB_REF!") do @set TRAVIS_BRANCH=%%~nxi
+          )
+
           echo GHA_TARGET_BRANCH is !GHA_TARGET_BRANCH!
+          echo TRAVIS_BRANCH is !TRAVIS_BRANCH!
 
           echo JOB_BUILDTYPE is !JOB_BUILDTYPE!
 
@@ -658,7 +664,7 @@ jobs:
               echo "here1"
               )
 
-          REM if "!JOB_BUILDTYPE!" == "boost" (
+          if "!JOB_BUILDTYPE!" == "boost" (
 
           echo "Running boost job"
           echo '==================================> INSTALL'
@@ -672,7 +678,6 @@ jobs:
           for /F %%i in ("!GITHUB_REPOSITORY!") do @set SELF=%%~nxi
           echo SELF is !SELF!
           SET BOOST_CI_TARGET_BRANCH=!GHA_TARGET_BRANCH!
-          set BOOST_CI_TARGET_BRANCH=!GHA_TARGET_BRANCH!
           echo BOOST_CI_TARGET_BRANCH is !BOOST_CI_TARGET_BRANCH!
           SET BOOST_CI_SRC_FOLDER=!cd!
           echo BOOST_CI_SRC_FOLDER is !BOOST_CI_SRC_FOLDER!
@@ -682,4 +687,30 @@ jobs:
           echo '==================================> COMPILE'
           
           call !BOOST_ROOT!\libs\!SELF!\ci\build.bat
+
+          ) else if "!JOB_BUILDTYPE!" == "standalone-windows" (
+
+          echo "Running standalone-windows"
+          echo '==================================> BEFORE_INSTALL'
+
+          echo '==================================> INSTALL'
+
+          REM Installing cmake with choco in the Dockerfile, so not required here:
+          REM choco install cmake
+
+          echo '==================================> COMPILE'
+
+          set CXXFLAGS="/std:c++17"
+          mkdir __build_17
+          cd __build_17
+          cmake -DBOOST_JSON_STANDALONE=1 ..
+          cmake --build .
+          ctest -V -C Debug .
+          set CXXFLAGS="/std:c++latest"
+          mkdir ..\__build_2a
+          cd ..\__build_2a
+          cmake -DBOOST_JSON_STANDALONE=1 ..
+          cmake --build .
+          ctest -V -C Debug .
+          )
 
