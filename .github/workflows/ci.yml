@@ -650,15 +650,15 @@ jobs:
           setlocal enabledelayedexpansion
           REM fix later:
           SET GHA_TARGET_BRANCH=develop
-          echo GHA_TARGET_BRANCH is %GHA_TARGET_BRANCH%
+          echo GHA_TARGET_BRANCH is !GHA_TARGET_BRANCH!
 
-          echo JOB_BUILDTYPE is %JOB_BUILDTYPE%
+          echo JOB_BUILDTYPE is !JOB_BUILDTYPE!
 
-          if %JOB_BUILDTYPE% == boost (
+          if !JOB_BUILDTYPE! == boost (
               echo "here1"
               )
 
-          if "%JOB_BUILDTYPE%" == "boost" (
+          if "!JOB_BUILDTYPE!" == "boost" (
 
           echo "Running boost job"
           echo '==================================> INSTALL'
@@ -669,23 +669,21 @@ jobs:
           REM source ci/travis/install.sh
           REM The contents of install.sh below:
           
-          for /F %%i in ("%GITHUB_REPOSITORY%") do @set SELF=%%~nxi
-          echo SELF is %SELF%
-          SET BOOST_CI_TARGET_BRANCH=%GHA_TARGET_BRANCH%
-          set BOOST_CI_TARGET_BRANCH=%GHA_TARGET_BRANCH%
-          echo BOOST_CI_TARGET_BRANCH is %BOOST_CI_TARGET_BRANCH%
-          SET BOOST_CI_SRC_FOLDER=%cd%
-          echo BOOST_CI_SRC_FOLDER is %BOOST_CI_SRC_FOLDER% 
-          setx XXXVAR "hello"
-          echo XXXVAR is %XXXVAR%
+          for /F %%i in ("!GITHUB_REPOSITORY!") do @set SELF=%%~nxi
+          echo SELF is !SELF!
+          SET BOOST_CI_TARGET_BRANCH=!GHA_TARGET_BRANCH!
+          set BOOST_CI_TARGET_BRANCH=!GHA_TARGET_BRANCH!
+          echo BOOST_CI_TARGET_BRANCH is !BOOST_CI_TARGET_BRANCH!
+          SET BOOST_CI_SRC_FOLDER=!cd!
+          echo BOOST_CI_SRC_FOLDER is !BOOST_CI_SRC_FOLDER!
           
           call ci\common_install.bat
           
           echo '==================================> COMPILE'
           
-          call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
+          call !BOOST_ROOT!\libs\!SELF!\ci\build.bat
 
-          ) else if "%JOB_BUILDTYPE%" == "standalone-windows" (
+          ) else if "!JOB_BUILDTYPE!" == "standalone-windows" (
 
           echo "Running standalone-windows"
           echo '==================================> BEFORE_INSTALL'
