@@ -43,6 +43,7 @@ cd ..\__build_2a
 cmake -DBOOST_JSON_STANDALONE=1 ..
 cmake --build .
 ctest -V -C Debug .
-
 )
+
+
 
