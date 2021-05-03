@@ -1,8 +1,8 @@
 
 @ECHO ON
-setlocal enabledelayedexpansion
+REM setlocal enabledelayedexpansion
 
-if "!DRONE_JOB_BUILDTYPE!" == "boost" (
+if "%DRONE_JOB_BUILDTYPE%" == "boost" (
 
 echo '==================================> INSTALL'
 
@@ -22,7 +22,7 @@ echo '==================================> COMPILE'
 
 call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
 
-) else if "!DRONE_JOB_BUILDTYPE!" == "standalone-windows" (
+) else if "%DRONE_JOB_BUILDTYPE%" == "standalone-windows" (
 
 echo '==================================> INSTALL'
 
@@ -44,6 +44,3 @@ cmake -DBOOST_JSON_STANDALONE=1 ..
 cmake --build .
 ctest -V -C Debug .
 )
-
-
-
