@@ -49,10 +49,10 @@ def main(ctx):
 #  linux_cxx("B2_TOOLSET=clang-11 B2_CXXSTD=17,2a Job 29", "clang++-11", packages="clang-11 libstdc++-9-dev", llvm_os="bionic", llvm_ver="11", buildtype="boost", buildscript="drone", image=linuxglobalimage, environment={'B2_TOOLSET': 'clang-11', 'B2_CXXSTD': '17,2a', 'DRONE_JOB_UUID': '7719a1c782'}, globalenv=globalenv),
 #  linux_cxx("COMMENT=standalone CXX=clang++-11 Job 30", "clang++-11", packages="clang-11 libstdc++-9-dev", llvm_os="bionic", llvm_ver="11", buildtype="standalone", buildscript="drone", image=linuxglobalimage, environment={'COMMENT': 'standalone', 'CXX': 'clang++-11', 'DRONE_JOB_UUID': '22d200f867'}, globalenv=globalenv),
 #  linux_cxx("COMMENT=Coverity Scan B2_TOOLSET=clang Job 31", "g++", packages="", buildtype="coverity", buildscript="drone", image=linuxglobalimage, environment={'COMMENT': 'Coverity Scan', 'B2_TOOLSET': 'clang', 'DRONE_JOB_UUID': '632667547e'}, globalenv=globalenv),
-    windows_cxx("msvc-14.0", "", image="cppalliance/dronevs2015", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.0", "B2_CXXSTD": "11,14"}),
-    windows_cxx("msvc-14.1", "", image="cppalliance/dronevs2017", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.1", "B2_CXXSTD": "11,14,17"}),
+    windows_cxx("msvc-14.0", "", image="cppalliance/dronevs2015", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.0", "B2_CXXSTD": "11,14"}, globalenv=globalenv),
+    windows_cxx("msvc-14.1", "", image="cppalliance/dronevs2017", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.1", "B2_CXXSTD": "11,14,17"}, globalenv=globalenv),
 #    windows_cxx("msvc-14.1 standalone", "msvc-14.1", image="cppalliance/dronevs2017", buildtype="standalone-windows", buildscript="drone", environment={"COMMENT": "standalone","CXX": "msvc-14.1"}),
-    windows_cxx("msvc-14.2", "", image="cppalliance/dronevs2019", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.2", "B2_CXXSTD": "17,latest"}),
+    windows_cxx("msvc-14.2", "", image="cppalliance/dronevs2019", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.2", "B2_CXXSTD": "17,latest"}, globalenv=globalenv),
 #    windows_cxx("msvc-14.2 standalone", "msvc-14.2", image="cppalliance/dronevs2019", buildtype="standalone-windows", buildscript="drone", environment={"COMMENT": "standalone","CXX": "msvc-14.2"})
     ]
 

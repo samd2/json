@@ -1,6 +1,6 @@
 
 @ECHO ON
-REM setlocal enabledelayedexpansion
+setlocal enabledelayedexpansion
 
 echo '==================================> INSTALL'
 
