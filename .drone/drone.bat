@@ -18,11 +18,13 @@ for /F %%i in ("%DRONE_REPO%") do @set SELF=%%~nxi
 SET BOOST_CI_TARGET_BRANCH=%DRONE_COMMIT_BRANCH%
 SET BOOST_CI_SRC_FOLDER=%cd%
 
+echo "Running common_install.bat"
 call ci\common_install.bat
+echo "Done with running common_install.bat"
 
 echo '==================================> COMPILE'
 
-call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
+REM call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
 
 ) else if "%DRONE_JOB_BUILDTYPE%" == "standalone-windows" (
 
