@@ -34,7 +34,7 @@ echo "!BOOST_ROOT!"
 
 echo '==================================> COMPILE'
 
-REM call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
+call !BOOST_ROOT!\libs\!SELF!\ci\build.bat
 
 ) else if "%DRONE_JOB_BUILDTYPE%" == "standalone-windows" (
 
