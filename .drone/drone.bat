@@ -22,6 +22,16 @@ echo "Running common_install.bat"
 call ci\common_install.bat
 echo "Done with running common_install.bat"
 
+echo "SELF with percentages:"
+echo "%SELF%"
+echo "SELF with exclamations"
+echo "!SELF!"
+
+echo "BOOST_ROOT with percentages:"
+echo "%BOOST_ROOT%"
+echo "BOOST_ROOT with exclamations"
+echo "!BOOST_ROOT!"
+
 echo '==================================> COMPILE'
 
 REM call %BOOST_ROOT%\libs\%SELF%\ci\build.bat
