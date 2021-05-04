@@ -10,6 +10,7 @@ on:
       - feature/**
       - fix/**
       - pr/**
+      - drone*
 
 env:
     B2_CI_VERSION: 1
