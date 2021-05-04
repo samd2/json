@@ -6,7 +6,9 @@ if "%DRONE_JOB_BUILDTYPE%" == "boost" (
 
 echo '==================================> INSTALL'
 
-git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
+REM git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
+REM testing
+git clone -b test8 https://github.com/sdarwin/boost-ci.git boost-ci-cloned --depth 1
 cp -prf boost-ci-cloned/ci .
 rm -rf boost-ci-cloned
 REM source ci/travis/install.sh
@@ -16,7 +18,19 @@ for /F %%i in ("%DRONE_REPO%") do @set SELF=%%~nxi
 SET BOOST_CI_TARGET_BRANCH=%DRONE_COMMIT_BRANCH%
 SET BOOST_CI_SRC_FOLDER=%cd%
 
+echo "Running common_install.bat"
 call ci\common_install.bat
+echo "Done with running common_install.bat"
+
+echo "SELF with percentages:"
+echo "%SELF%"
+echo "SELF with exclamations"
+echo "!SELF!"
+
+echo "BOOST_ROOT with percentages:"
+echo "%BOOST_ROOT%"
+echo "BOOST_ROOT with exclamations"
+echo "!BOOST_ROOT!"
 
 echo '==================================> COMPILE'
 
