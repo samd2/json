@@ -136,4 +136,30 @@ cd $BOOST_ROOT/libs/$SELF
 ci/travis/coverity.sh
 fi
 
+elif [ "$DRONE_JOB_BUILDTYPE" == "cmake-superproject" ]; then
+
+echo '==================================> INSTALL'
+
+common_install
+
+echo '==================================> COMPILE'
+
+export CXXFLAGS="-Wall -Wextra -Werror"
+
+mkdir __build_static
+cd __build_static
+cmake -DBOOST_ENABLE_CMAKE=1 -DBUILD_TESTING=ON -DBoost_VERBOSE=1 \
+    -DBOOST_INCLUDE_LIBRARIES=json ..
+cmake --build .
+ctest --output-on-failure -R boost_json
+
+cd ..
+
+mkdir __build_shared
+cd __build_shared
+cmake -DBOOST_ENABLE_CMAKE=1 -DBUILD_TESTING=ON -DBoost_VERBOSE=1 \
+    -DBOOST_INCLUDE_LIBRARIES=json -DBUILD_SHARED_LIBS=ON ..
+cmake --build .
+ctest --output-on-failure -R boost_json
+
 fi
