@@ -69,7 +69,7 @@ elif [ "$DRONE_JOB_BUILDTYPE" == "coverity" ]; then
 
 echo '==================================> INSTALL'
 
-common_install.sh
+common_install
 
 echo '==================================> SCRIPT'
 
