@@ -31,10 +31,6 @@ common_install () {
   export BOOST_CI_SRC_FOLDER=$(pwd)
 
   . ./ci/common_install.sh
-  echo "debugging7. remove this"
-  set -ex
-  b2 -v 
-  b2 --version
 }
 
 if [ "$DRONE_JOB_BUILDTYPE" == "boost" ]; then
