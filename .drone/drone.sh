@@ -18,10 +18,6 @@ export TRAVIS_BRANCH=$DRONE_BRANCH
 export TRAVIS_EVENT_TYPE=$DRONE_BUILD_EVENT
 
 common_install () {
-  echo "debugging7. remove this"
-  set -ex
-  b2 -v 
-  b2 --version
   git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
   cp -prf boost-ci-cloned/ci .
   rm -rf boost-ci-cloned
@@ -35,6 +31,10 @@ common_install () {
   export BOOST_CI_SRC_FOLDER=$(pwd)
 
   . ./ci/common_install.sh
+  echo "debugging7. remove this"
+  set -ex
+  b2 -v 
+  b2 --version
 }
 
 if [ "$DRONE_JOB_BUILDTYPE" == "boost" ]; then
