@@ -73,6 +73,14 @@ environment:
     #   B2_TOOLSET: gcc
 
     - FLAVOR: mingw32
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ARCH: i686
+      B2_ADDRESS_MODEL: 32
+      B2_CXXSTD: 11
+      SCRIPT: ci\appveyor\mingw.bat
+      B2_VARIANT: debug
+
+    - FLAVOR: mingw32
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       ARCH: i686
       B2_ADDRESS_MODEL: 32
@@ -112,6 +120,14 @@ environment:
     #   B2_CXXSTD: 11,14,1z
     #   B2_THREADING: threadapi=pthread
     #   B2_TOOLSET: gcc
+
+    - FLAVOR: mingw64
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ARCH: x86_64
+      B2_ADDRESS_MODEL: 64
+      B2_CXXSTD: 11,17
+      B2_DEFINES: __USE_ISOC99
+      SCRIPT: ci\appveyor\mingw.bat
 
     - FLAVOR: mingw64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
