@@ -55,8 +55,8 @@ parameters:
       - { compiler: gcc-4.8,   cxxstd: '11',       os: ubuntu-18.04 }
       - { compiler: clang-12,  cxxstd: '14,17,20', os: ubuntu-20.04 }
       - { compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04 }
-      - { name: 'Linux_clang_11_libc_release', compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'release' }
-      - { name: 'Linux_clang_11_libc_debug', compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'debug' }
+      - { name: 'Linux_clang_11_libcxx_release', compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'release' }
+      - { name: 'Linux_clang_11_libcxx_debug', compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'debug' }
       - { compiler: clang-10,  cxxstd: '14,17,20', os: ubuntu-20.04 }
       - { compiler: clang-9,   cxxstd: '14,17,2a', os: ubuntu-20.04 }
       - { compiler: clang-8,   cxxstd: '14,17',    os: ubuntu-18.04, install: 'clang-8 libc6-dbg libc++-dev libstdc++-8-dev' }
