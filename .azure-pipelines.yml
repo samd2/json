@@ -55,14 +55,14 @@ parameters:
       - { compiler: gcc-4.8,   cxxstd: '11',       os: ubuntu-18.04 }
       - { compiler: clang-12,  cxxstd: '14,17,20', os: ubuntu-20.04 }
       - { compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04 }
-      - { compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'release' }
-      - { compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'debug' }
+      - { name: 'Linux_clang_11_libc_release', compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'release' }
+      - { name: 'Linux_clang_11_libc_debug', compiler: clang-11,  cxxstd: '14,17,20', os: ubuntu-20.04, install: 'libc++-dev libc++abi-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'debug' }
       - { compiler: clang-10,  cxxstd: '14,17,20', os: ubuntu-20.04 }
       - { compiler: clang-9,   cxxstd: '14,17,2a', os: ubuntu-20.04 }
       - { compiler: clang-8,   cxxstd: '14,17',    os: ubuntu-18.04, install: 'clang-8 libc6-dbg libc++-dev libstdc++-8-dev' }
       - { compiler: clang-7,   cxxstd: '14,17',    os: ubuntu-18.04, install: 'clang-7 libc6-dbg libc++-dev libstdc++-8-dev' }
-      - { compiler: clang-6.0, cxxstd: '11,14,17', os: ubuntu-18.04, install: 'clang-6.0 libc6-dbg libc++-dev libc++abi-dev libstdc++-8-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'release' }
-      - { compiler: clang-6.0, cxxstd: '11,14,17', os: ubuntu-18.04, install: 'clang-6.0 libc6-dbg libc++-dev libc++abi-dev libstdc++-8-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'debug' }
+      - { name: 'Linux_clang_6_libc_release', compiler: clang-6.0, cxxstd: '11,14,17', os: ubuntu-18.04, install: 'clang-6.0 libc6-dbg libc++-dev libc++abi-dev libstdc++-8-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'release' }
+      - { name: 'Linux_clang_6_libc_debug', compiler: clang-6.0, cxxstd: '11,14,17', os: ubuntu-18.04, install: 'clang-6.0 libc6-dbg libc++-dev libc++abi-dev libstdc++-8-dev', env: {B2_STDLIB: libc++ }, b2_variant: 'debug' }
       - { name: Linux_clang_6_libcxx,
           compiler: clang-6.0, cxxstd: '11,14,17', os: ubuntu-18.04, install: 'clang-6.0 libc6-dbg libc++-dev libc++abi-dev libstdc++-8-dev' }
       - { compiler: clang-5.0, cxxstd: '11,14,17', os: ubuntu-18.04 }
@@ -70,10 +70,10 @@ parameters:
       - { compiler: clang-3.9, cxxstd: '11,14',    os: ubuntu-18.04 }
       - { compiler: clang-3.8, cxxstd: '11,14',    os: ubuntu-18.04, container: 'ubuntu:16.04' }
       - { compiler: clang-3.7, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04' }
-      - { compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
-      - { compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
-      - { compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
-      - { compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
+      - { name: 'Linux_clang_3.6_release', compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
+      - { name: 'Linux_clang_3.5_release', compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
+      - { name: 'Linux_clang_3.6_debug', compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
+      - { name: 'Linux_clang_3.5_debug', compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
       # OSX
       - { compiler: clang, cxxstd: '14,17,2a',    os: macOS-10.15, xcode: 12.4 }
       - { compiler: clang, cxxstd: '14,17,2a',    os: macOS-10.15, xcode: 12.3 }
