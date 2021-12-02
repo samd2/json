@@ -105,7 +105,7 @@ stages:
             B2_COMPILER: ${{ item.compiler }}
             B2_CXXSTD: ${{ item.cxxstd }}
             ${{ if not(contains(item.os, 'macOS')) }}:
-              B2_USE_CCACHE: 1
+              B2_USE_CCACHE: 0
               B2_CCACHE_DIR: $(Pipeline.Workspace)/.ccache
             ${{ if item.xcode }}:
               XCODE_APP: /Applications/Xcode_${{ item.xcode }}.app
