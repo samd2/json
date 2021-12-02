@@ -70,10 +70,10 @@ parameters:
       - { compiler: clang-3.9, cxxstd: '11,14',    os: ubuntu-18.04 }
       - { compiler: clang-3.8, cxxstd: '11,14',    os: ubuntu-18.04, container: 'ubuntu:16.04' }
       - { compiler: clang-3.7, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04' }
-      - { name: 'Linux_clang_3.6_release', compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
-      - { name: 'Linux_clang_3.5_release', compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
-      - { name: 'Linux_clang_3.6_debug', compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
-      - { name: 'Linux_clang_3.5_debug', compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
+      - { name: 'Linux_clang_3_6_release', compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
+      - { name: 'Linux_clang_3_5_release', compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'release' }
+      - { name: 'Linux_clang_3_6_debug', compiler: clang-3.6, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
+      - { name: 'Linux_clang_3_5_debug', compiler: clang-3.5, cxxstd: '11',       os: ubuntu-18.04, container: 'ubuntu:16.04', b2_variant: 'debug' }
       # OSX
       - { compiler: clang, cxxstd: '14,17,2a',    os: macOS-10.15, xcode: 12.4 }
       - { compiler: clang, cxxstd: '14,17,2a',    os: macOS-10.15, xcode: 12.3 }
