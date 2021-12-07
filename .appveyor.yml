@@ -62,13 +62,13 @@ environment:
     - FLAVOR: Visual Studio 2019
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       B2_CXXFLAGS: -permissive-
-      B2_CXXSTD: 14,17,latest # 2a
+      B2_CXXSTD: 14,17,2a
       B2_TOOLSET: msvc-14.2
 
     - FLAVOR: Visual Studio 2017 C++2a Strict
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       B2_CXXFLAGS: -permissive-
-      B2_CXXSTD: latest # 2a
+      B2_CXXSTD: 2a
       B2_TOOLSET: msvc-14.1
 
     - FLAVOR: Visual Studio 2017 C++14/17
@@ -95,29 +95,29 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       ADDPATH: C:\cygwin\bin;
       B2_ADDRESS_MODEL: 32
-      B2_CXXSTD: 03,11,14,1z
+      B2_CXXSTD: 11,14,1z
       B2_TOOLSET: gcc
 
     - FLAVOR: cygwin (64-bit)
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       ADDPATH: C:\cygwin64\bin;
       B2_ADDRESS_MODEL: 64
-      B2_CXXSTD: 03,11,14,1z
+      B2_CXXSTD: 11,14,1z
       B2_TOOLSET: gcc
 
     - FLAVOR: mingw32
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
       ARCH: i686
       B2_ADDRESS_MODEL: 32
-      B2_CXXSTD: 11
+      B2_CXXSTD: 11,14,17,2a
       SCRIPT: ci\appveyor\mingw.bat
       B2_VARIANT: debug
 
     - FLAVOR: mingw64
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
       ARCH: x86_64
       B2_ADDRESS_MODEL: 64
-      B2_CXXSTD: 11,17
+      B2_CXXSTD: 11,14,17,2a
       B2_DEFINES: __USE_ISOC99
       SCRIPT: ci\appveyor\mingw.bat
 
