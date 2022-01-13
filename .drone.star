@@ -58,63 +58,64 @@ def main(ctx):
   ]
 
 # from https://github.com/boostorg/boost-ci
-# load("@boost_ci//ci/drone/:functions.star", "linux_cxx","windows_cxx","osx_cxx","freebsd_cxx")
+load("@boost_ci//ci/drone/:functions.star", "linux_cxx","windows_cxx","osx_cxx","freebsd_cxx")
 
 # Generate pipeline for Linux platform compilers.
-def linux_cxx(name, cxx, cxxflags="", packages="", sources="", llvm_os="", llvm_ver="", arch="amd64", image="cppalliance/ubuntu16.04:1", buildtype="boost", buildscript="", environment={}, globalenv={}, triggers={ "branch": [ "master", "develop", "drone*", "bugfix/*", "feature/*", "fix/*", "pr/*" ] }, privileged=False):
-  environment_global = {
-      "TRAVIS_BUILD_DIR": "/drone/src",
-      "TRAVIS_OS_NAME": "linux",
-      "CXX": cxx,
-      "CXXFLAGS": cxxflags,
-      "PACKAGES": packages,
-      "SOURCES": sources,
-      "LLVM_OS": llvm_os,
-      "LLVM_VER": llvm_ver,
-      "DRONE_JOB_BUILDTYPE": buildtype
-      }
-  environment_global.update(globalenv)
-  environment_current=environment_global
-  environment_current.update(environment)
 
-  if buildscript:
-    buildscript_to_run = buildscript
-  else:
-    buildscript_to_run = buildtype
-
-  return {
-    "name": "Linux %s" % name,
-    "kind": "pipeline",
-    "type": "docker",
-    "trigger": triggers,
-    "platform": {
-      "os": "linux",
-      "arch": arch
-    },
-    "steps": [
-      {
-        "name": "Everything",
-        "image": image,
-        "privileged" : privileged,
-        "environment": environment_current,
-        "commands": [
-
-          "echo '==================================> SETUP'",
-          "uname -a",
-          # Moved to Docker
-          # "apt-get -o Acquire::Retries=3 update && DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget curl apt-transport-https git make cmake apt-file sudo unzip libssl-dev build-essential autotools-dev autoconf libc++-helpers automake g++",
-          # "for i in {1..3}; do apt-add-repository ppa:git-core/ppa && break || sleep 10; done",
-          # "apt-get -o Acquire::Retries=3 update && apt-get -o Acquire::Retries=3 -y install git",
-          "BOOST_CI_ORG=sdarwin BOOST_CI_BRANCH=test6 && wget https://github.com/$BOOST_CI_ORG/boost-ci/archive/$BOOST_CI_BRANCH.tar.gz && tar -xvf $BOOST_CI_BRANCH.tar.gz && mv boost-ci-$BOOST_CI_BRANCH .drone/boost-ci && rm $BOOST_CI_BRANCH.tar.gz",
-          "echo '==================================> PACKAGES'",
-          # "./.drone/linux-cxx-install.sh",
-          "./.drone/boost-ci/ci/drone/linux-cxx-install.sh",
-
-          "echo '==================================> INSTALL AND COMPILE'",
-          "./.drone/%s.sh" % buildscript_to_run,
-        ]
-      }
-    ]
-  }
-
-
+# def linux_cxx(name, cxx, cxxflags="", packages="", sources="", llvm_os="", llvm_ver="", arch="amd64", image="cppalliance/ubuntu16.04:1", buildtype="boost", buildscript="", environment={}, globalenv={}, triggers={ "branch": [ "master", "develop", "drone*", "bugfix/*", "feature/*", "fix/*", "pr/*" ] }, privileged=False):
+#   environment_global = {
+#       "TRAVIS_BUILD_DIR": "/drone/src",
+#       "TRAVIS_OS_NAME": "linux",
+#       "CXX": cxx,
+#       "CXXFLAGS": cxxflags,
+#       "PACKAGES": packages,
+#       "SOURCES": sources,
+#       "LLVM_OS": llvm_os,
+#       "LLVM_VER": llvm_ver,
+#       "DRONE_JOB_BUILDTYPE": buildtype
+#       }
+#   environment_global.update(globalenv)
+#   environment_current=environment_global
+#   environment_current.update(environment)
+# 
+#   if buildscript:
+#     buildscript_to_run = buildscript
+#   else:
+#     buildscript_to_run = buildtype
+# 
+#   return {
+#     "name": "Linux %s" % name,
+#     "kind": "pipeline",
+#     "type": "docker",
+#     "trigger": triggers,
+#     "platform": {
+#       "os": "linux",
+#       "arch": arch
+#     },
+#     "steps": [
+#       {
+#         "name": "Everything",
+#         "image": image,
+#         "privileged" : privileged,
+#         "environment": environment_current,
+#         "commands": [
+# 
+#           "echo '==================================> SETUP'",
+#           "uname -a",
+#           # Moved to Docker
+#           # "apt-get -o Acquire::Retries=3 update && DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget curl apt-transport-https git make cmake apt-file sudo unzip libssl-dev build-essential autotools-dev autoconf libc++-helpers automake g++",
+#           # "for i in {1..3}; do apt-add-repository ppa:git-core/ppa && break || sleep 10; done",
+#           # "apt-get -o Acquire::Retries=3 update && apt-get -o Acquire::Retries=3 -y install git",
+#           "BOOST_CI_ORG=sdarwin BOOST_CI_BRANCH=test6 && wget https://github.com/$BOOST_CI_ORG/boost-ci/archive/$BOOST_CI_BRANCH.tar.gz && tar -xvf $BOOST_CI_BRANCH.tar.gz && mv boost-ci-$BOOST_CI_BRANCH .drone/boost-ci && rm $BOOST_CI_BRANCH.tar.gz",
+#           "echo '==================================> PACKAGES'",
+#           # "./.drone/linux-cxx-install.sh",
+#           "./.drone/boost-ci/ci/drone/linux-cxx-install.sh",
+# 
+#           "echo '==================================> INSTALL AND COMPILE'",
+#           "./.drone/%s.sh" % buildscript_to_run,
+#         ]
+#       }
+#     ]
+#   }
+# 
+# 
