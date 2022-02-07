@@ -8,7 +8,7 @@
 # As the yaml syntax for Drone CI is rather limited.
 #
 #
-globalenv={'UBUNTU_TOOLCHAIN_R_TEST_DISABLE': 'true', B2_CI_VERSION': '1', 'B2_VARIANT': 'release', 'B2_FLAGS': 'warnings=extra warnings-as-errors=on'}
+globalenv={'UBUNTU_TOOLCHAIN_R_TEST_DISABLE': 'true', 'B2_CI_VERSION': '1', 'B2_VARIANT': 'release', 'B2_FLAGS': 'warnings=extra warnings-as-errors=on'}
 linuxglobalimage="cppalliance/droneubuntu1804:1"
 windowsglobalimage="cppalliance/dronevs2019"
 
