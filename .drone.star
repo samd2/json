@@ -1,7 +1,7 @@
 # Use, modification, and distribution are
 # subject to the Boost Software License, Version 1.0. (See accompanying
 # file LICENSE.txt)
-#   
+#     
 # Copyright Rene Rivera 2020.
 
 # For Drone CI we use the Starlark scripting language to reduce duplication.
