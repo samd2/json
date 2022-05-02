@@ -21,10 +21,10 @@ inputs:
     description: B2 toolset module version to target
     required: false
     default: ''
-  llvm_version:
-    description: LLVM version to install
-    required: false
-    default: ''
+#   llvm_version:
+#     description: LLVM version to install
+#     required: false
+#     default: ''
 runs:
   using: "composite"
   steps:
@@ -46,7 +46,8 @@ runs:
             wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
             LLVM_DISTRIB=llvm-toolchain-${DISTRIB_CODENAME}
             if test -n "${{ inputs.llvm_version }}" ; then
-                LLVM_DISTRIB=${LLVM_DISTRIB}-${{ inputs.llvm_version }}
+                # LLVM_DISTRIB=${LLVM_DISTRIB}-${{ inputs.llvm_version }}
+                LLVM_DISTRIB=${LLVM_DISTRIB}-${{ inputs.version }}
             fi
             echo "Blabber LLVM_DISTRIB is $LLVM_DISTRIB"
             sudo -E apt-add-repository "deb http://apt.llvm.org/${DISTRIB_CODENAME}/ ${LLVM_DISTRIB} main"
