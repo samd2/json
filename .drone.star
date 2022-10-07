@@ -53,7 +53,10 @@ def main(ctx):
   # windows_cxx("msvc-14.1", "", image="cppalliance/dronevs2017", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.1", "B2_CXXSTD": "11,14,17"}, globalenv=globalenv),
   # windows_cxx("msvc-14.2", "", image="cppalliance/dronevs2019:2", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.2", "B2_CXXSTD": "17,latest"}, globalenv=globalenv),
   # windows_cxx("msvc-14.3", "", image="cppalliance/dronevs2022:1", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.3", "B2_CXXSTD": "17,20"}, globalenv=globalenv)
-  freebsd_cxx("gcc 11", "g++11", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20'}, globalenv=globalenv)
+  freebsd_cxx("gcc 11", "g++11", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("gcc 11.2", "g++11", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("gcc 11.3", "g++11", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("gcc 11.4", "g++11", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20'}, globalenv=globalenv)
   ]
 
 # from https://github.com/boostorg/boost-ci
