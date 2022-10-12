@@ -57,6 +57,7 @@ def main(ctx):
   freebsd_cxx("gcc 10", "g++10", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-10', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
   freebsd_cxx("gcc 9", "g++9", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-9', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
   freebsd_cxx("gcc 8", "g++8", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-8', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv)
+  freebsd_cxx("clang", "clang++", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17,20'}, globalenv=globalenv)
   ]
 
 # from https://github.com/boostorg/boost-ci
