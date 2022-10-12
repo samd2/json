@@ -57,13 +57,13 @@ def main(ctx):
   # freebsd_cxx("gcc 10", "g++10", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-10', 'B2_CXXSTD': '17,20', 'B2_LINKFLAGS': '-Wl,-rpath=/usr/local/lib/gcc10'}, globalenv=globalenv),
   # freebsd_cxx("gcc 9", "g++9", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-9', 'B2_CXXSTD': '17,2a', 'B2_LINKFLAGS': '-Wl,-rpath=/usr/local/lib/gcc9'}, globalenv=globalenv),
   # freebsd_cxx("gcc 8", "g++8", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-8', 'B2_CXXSTD': '17,2a', 'B2_LINKFLAGS': '-Wl,-rpath=/usr/local/lib/gcc8'}, globalenv=globalenv),
-  freebsd_cxx("gcc", "g++", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("clang", "clang++-15", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-15', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("clang", "clang++-14", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-14', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("clang", "clang++-13", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-13', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("clang", "clang++-12", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-12', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("clang", "clang++-11", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-11', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
-  freebsd_cxx("clang", "clang++-10", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-10', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
+  freebsd_cxx("gcc freebsd", "g++", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("clang 15 freebsd", "clang++-15", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-15', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("clang 14 freebsd", "clang++-14", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-14', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("clang 13 freebsd", "clang++-13", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-13', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("clang 12 freebsd", "clang++-12", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-12', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+  freebsd_cxx("clang 11 freebsd", "clang++-11", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-11', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
+  freebsd_cxx("clang 10 freebsd", "clang++-10", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang-10', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
 
   ]
 
