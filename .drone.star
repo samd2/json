@@ -53,10 +53,10 @@ def main(ctx):
   # windows_cxx("msvc-14.1", "", image="cppalliance/dronevs2017", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.1", "B2_CXXSTD": "11,14,17"}, globalenv=globalenv),
   # windows_cxx("msvc-14.2", "", image="cppalliance/dronevs2019:2", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.2", "B2_CXXSTD": "17,latest"}, globalenv=globalenv),
   # windows_cxx("msvc-14.3", "", image="cppalliance/dronevs2022:1", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.3", "B2_CXXSTD": "17,20"}, globalenv=globalenv)
-  freebsd_cxx("gcc 11", "g++11", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("gcc 10", "g++10", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-10', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
-  freebsd_cxx("gcc 9", "g++9", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-9', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
-  freebsd_cxx("gcc 8", "g++8", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-8', 'B2_CXXSTD': '17,2a'}, globalenv=globalenv),
+  freebsd_cxx("gcc 11", "g++11", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20', 'B2_LINKFLAGS': 'linkflags=-Wl, linkflags=-rpath=/usr/local/lib/gcc11'}, globalenv=globalenv),
+  freebsd_cxx("gcc 10", "g++10", packages="", buildtype="boost", buildscript="drone", image="", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-10', 'B2_CXXSTD': '17,20', 'B2_LINKFLAGS': 'linkflags=-Wl, linkflags=-rpath=/usr/local/lib/gcc10'}, globalenv=globalenv),
+  freebsd_cxx("gcc 9", "g++9", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-9', 'B2_CXXSTD': '17,2a', 'B2_LINKFLAGS': 'linkflags=-Wl, linkflags=-rpath=/usr/local/lib/gcc9'}, globalenv=globalenv),
+  freebsd_cxx("gcc 8", "g++8", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'gcc-8', 'B2_CXXSTD': '17,2a', 'B2_LINKFLAGS': 'linkflags=-Wl, linkflags=-rpath=/usr/local/lib/gcc8'}, globalenv=globalenv),
   freebsd_cxx("clang", "clang++", packages="", buildtype="boost", buildscript="drone", image="", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
   ]
 
