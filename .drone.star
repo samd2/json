@@ -56,7 +56,10 @@ def main(ctx):
   windows_cxx("msvc-14.2", "", image="cppalliance/dronevs2019:2", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.2", "B2_CXXSTD": "17,latest"}, globalenv=globalenv),
   windows_cxx("msvc-14.3", "", image="cppalliance/dronevs2022:1", buildtype="boost", buildscript="drone", environment={"B2_TOOLSET": "msvc-14.3", "B2_CXXSTD": "17,20"}, globalenv=globalenv),
   osx_cxx("OSX: Clang", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXFLAGS': '-Werror', 'B2_CXXSTD': '11,17'}, globalenv=globalenv),
-  osx_cxx("OSX: gcc", "g++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'gcc', 'B2_CXXFLAGS': '-Werror', 'B2_CXXSTD': '11,17'}, globalenv=globalenv),
+  osx_cxx("OSX: Clang 2", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXFLAGS': '-Werror', 'B2_CXXSTD': '11,17'}, globalenv=globalenv),
+  osx_cxx("OSX: gcc", "g++-12", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'gcc-12', 'B2_CXXFLAGS': '-Werror', 'B2_CXXSTD': '11,17'}, globalenv=globalenv),
+  osx_cxx("OSX: gcc 2", "g++-12", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'gcc-12', 'B2_CXXFLAGS': '-Werror', 'B2_CXXSTD': '11,17'}, globalenv=globalenv),
+  osx_cxx("OSX: gcc 3", "g++-12", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'gcc-12', 'B2_CXXFLAGS': '-Werror', 'B2_CXXSTD': '11,17'}, globalenv=globalenv),
   ]
 
 # from https://github.com/boostorg/boost-ci
