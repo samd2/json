@@ -21,20 +21,24 @@ jobs:
             toolset: clang
             cxxstd: "17"
             os: macos-11
+            buildtype: "boost"
           - name: macos-cxx17 gcc
             toolset: "gcc"
             cxxstd: "17"
             os: macos-11
+            buildtype: "boost"
           - name: macos-cxx17 clang 12
             toolset: clang
             toolset_version: "12"
             cxxstd: "17"
             os: macos-11
+            buildtype: "boost"
           - name: macos-cxx17 gcc 11
             toolset: "gcc"
             toolset_version: "11"
             cxxstd: "17"
             os: macos-11
+            buildtype: "boost"
           - name: "COMMENT=docs Job 0"
             buildtype: "docs"
             packages: "docbook docbook-xml docbook-xsl xsltproc libsaxonhe-java default-jre-headless flex bison rsync"

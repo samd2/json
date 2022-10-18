@@ -95,6 +95,12 @@ runs:
         echo "DRONE_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
         echo "DRONE_REPO=${{ github.repository }}" >> $GITHUB_ENV
 
+    - name: macos
+      if: runner.os == 'MacOS'
+      shell: bash
+      run: . .drone/drone.sh
+      working-directory: ${{ inputs.path }}
+
     - name: linux
       if: runner.os == 'Linux'
       shell: bash
