@@ -63,6 +63,9 @@ def main(ctx):
   osx_cxx("macOS: Clang", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17'}, globalenv=globalenv),
   osx_cxx("macOS: Clang 2", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17'}, globalenv=globalenv),
   osx_cxx("macOS: Clang 3", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17'}, globalenv=globalenv),
+  osx_cxx("macOS: Clang 4", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17'}, globalenv=globalenv),
+  osx_cxx("macOS: Clang 5", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17'}, globalenv=globalenv),
+  osx_cxx("macOS: Clang 6", "clang++", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'clang', 'B2_CXXSTD': '17'}, globalenv=globalenv),
   # osx_cxx("macOS: gcc-12", "g++-12", packages="", buildscript="drone", buildtype="boost", xcode_version="13.4.1", environment={'B2_TOOLSET': 'gcc-12', 'B2_CXXSTD': '17'}, globalenv=globalenv)
   ]
 
