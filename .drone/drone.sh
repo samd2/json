@@ -5,7 +5,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-set -e
+set -ex
 export TRAVIS_OS_NAME=linux
 export TRAVIS_BUILD_DIR=$(pwd)
 export DRONE_BUILD_DIR=$(pwd)
@@ -42,6 +42,14 @@ echo '==================================> INSTALL'
 common_install
 
 echo '==================================> SCRIPT'
+
+
+if [ "$CIRCLE_LANG" == "true" ]; then
+  echo "Installing circle-lang"
+  wget -P /home https://www.circle-lang.org/debian/build_182.tgz && \
+  tar xvf /home/build_182.tgz -C /usr/bin && \
+  chmod +x /usr/bin/circle 
+fi
 
 export B2_TARGETS=${B2_TARGETS:-"libs/$SELF/test libs/$SELF/example"}
 $BOOST_ROOT/libs/$SELF/ci/travis/build.sh
