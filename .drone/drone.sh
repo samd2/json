@@ -5,7 +5,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
-set -e
+set -ex
 export TRAVIS_OS_NAME=linux
 export TRAVIS_BUILD_DIR=$(pwd)
 export DRONE_BUILD_DIR=$(pwd)
@@ -45,6 +45,12 @@ echo '==================================> SCRIPT'
 
 export B2_TARGETS=${B2_TARGETS:-"libs/$SELF/test libs/$SELF/example"}
 $BOOST_ROOT/libs/$SELF/ci/travis/build.sh
+
+# DEBUG
+echo "DEBUGG. DONE WITH BUILD"
+pwd
+ls -al /drone || true
+ls -al /drone/boost-root || true
 
 elif [ "$DRONE_JOB_BUILDTYPE" == "docs" ]; then
 
