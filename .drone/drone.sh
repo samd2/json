@@ -20,7 +20,8 @@ export CC=${CC:-gcc}
 export PATH=~/.local/bin:/usr/local/bin:$PATH
 
 common_install () {
-  git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
+  # git clone https://github.com/boostorg/boost-ci.git boost-ci-cloned --depth 1
+  git clone -b feature/lcov3 https://github.com/sdarwin/boost-ci.git boost-ci-cloned --depth 1
   cp -prf boost-ci-cloned/ci .
   rm -rf boost-ci-cloned
 
