@@ -24,15 +24,15 @@ pipeline {
             }
         }
 
-        # stage('Code Checkout') {
-        #     steps {
-        #         checkout([
-        #             $class: 'GitSCM', 
-        #             branches: [[name: '*/main']], 
-        #             userRemoteConfigs: [[url: 'https://github.com/spring-projects/spring-petclinic.git']]
-        #         ])
-        #     }
-        # }
+    //  stage('Code Checkout') {
+    //      steps {
+    //          checkout([
+    //              $class: 'GitSCM', 
+    //              branches: [[name: '*/main']], 
+    //              userRemoteConfigs: [[url: 'https://github.com/spring-projects/spring-petclinic.git']]
+    //          ])
+    //      }
+    //  }
 
         stage('Unit Testing') {
             steps {
@@ -51,9 +51,10 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                sh """
+                sh '''#!/bin/bash
                 echo "Building Artifact for Staging and Pre-Prod Environments"
-                """
+                env
+                '''
                 sh """
                 echo "Deploying to Staging Environment"
                 """
