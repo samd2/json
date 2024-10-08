@@ -45,7 +45,7 @@ pipeline {
                 pwd
                 env
                 whoami
-                mount | grep ^/dev/ | grep -v /etc | awk '{print $3}' || true
+                mount | grep ^/dev/ | grep -v /etc | awk '{print ${3}}' || true
                 """
             }
         }
@@ -60,7 +60,7 @@ pipeline {
                 set -xe
                 echo "Building Artifact for Staging and Pre-Prod Environments"
                 env
-                mount | grep ^/dev/ | grep -v /etc | awk '{print $3}' || true
+                mount | grep ^/dev/ | grep -v /etc | awk '{print ${3}}' || true
                 '''
                 sh """
                 echo "Deploying to Staging Environment"
