@@ -8,6 +8,7 @@ pipeline {
 
     agent {
         docker { image 'cppalliance/boost_superproject_build:24.04-v1' }
+        label 'jenkinspool1'
     }
 
     options {
@@ -19,15 +20,15 @@ pipeline {
 
     stages {
         
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace For Project"
-                """
-                checkout scm
-            }
-        }
+    //    stage('Cleanup Workspace') {
+    //        steps {
+    //            cleanWs()
+    //            sh """
+    //            echo "Cleaned Up Workspace For Project"
+    //            """
+    //            checkout scm
+    //        }
+    //    }
 
     //  stage('Code Checkout') {
     //      steps {
@@ -81,5 +82,11 @@ pipeline {
         }
 
     }   
+
+  post { 
+      always { 
+          cleanWs()
+      }
+  }
 }
 
