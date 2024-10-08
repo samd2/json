@@ -19,14 +19,14 @@ pipeline {
 
     stages {
         
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace For Project"
-                """
-            }
-        }
+    //    stage('Cleanup Workspace') {
+    //        steps {
+    //            cleanWs()
+    //            sh """
+    //            echo "Cleaned Up Workspace For Project"
+    //            """
+    //        }
+    //    }
 
     //  stage('Code Checkout') {
     //      steps {
@@ -48,7 +48,8 @@ pipeline {
                 pwd || true
                 env || true
                 whoami || true
-                mount | grep ^/dev/ | grep -v /etc | awk '{print ${3}}' || true
+                touch $(date "+%A-%B-%d-%T-%y") || true
+                mount | grep ^/dev/ | grep -v /etc | awk '{print \$3}' || true
                 ''' 
             }
         }
