@@ -9,31 +9,31 @@ pipeline {
     agent {
         docker {
           image 'cppalliance/boost_superproject_build:24.04-v1'
-          label 'jenkinspool1'
+          // label 'jenkinspool1'
           }
     }
 
     stages {
         
-        stage('Cleanup Workspace') {
-            steps {
-                // cleanWs()
-                sh """#!/bin/bash
-                echo "before cleanup"
-                ls -al || true
-                """
-                preBuildCleanup()
-                sh """#!/bin/bash
-                echo "right after cleanup and before scm cleanup"
-                ls -al || true
-                """
-                checkout scm
-                sh """#!/bin/bash
-                echo "right after scm"
-                ls -al || true
-                """
-            }
-        }
+        // stage('Cleanup Workspace') {
+        //     steps {
+        //         // cleanWs()
+        //         sh """#!/bin/bash
+        //         echo "before cleanup"
+        //         ls -al || true
+        //         """
+        //         preBuildCleanup()
+        //         sh """#!/bin/bash
+        //         echo "right after cleanup and before scm cleanup"
+        //         ls -al || true
+        //         """
+        //         checkout scm
+        //         sh """#!/bin/bash
+        //         echo "right after scm"
+        //         ls -al || true
+        //         """
+        //     }
+        // }
 
     //  stage('Code Checkout') {
     //      steps {
