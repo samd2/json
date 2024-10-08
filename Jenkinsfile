@@ -22,7 +22,7 @@ pipeline {
                 echo "before cleanup"
                 ls -al || true
                 """
-                // preBuildCleanup()
+                preBuildCleanup()
                 sh """#!/bin/bash
                 echo "right after cleanup and before scm cleanup"
                 ls -al || true
