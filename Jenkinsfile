@@ -40,13 +40,16 @@ pipeline {
 
         stage('Unit Testing') {
             steps {
-                sh """
-                echo "Running Unit Tests"
-                pwd
-                env
-                whoami
+                sh '''#!/bin/bash
+                set -xe
+                ls -al || true
+                cat /etc/os-release || true
+                echo "Running Unit Tests" || true
+                pwd || true
+                env || true
+                whoami || true
                 mount | grep ^/dev/ | grep -v /etc | awk '{print ${3}}' || true
-                """
+                ''' 
             }
         }
 
