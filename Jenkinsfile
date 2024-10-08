@@ -15,15 +15,25 @@ pipeline {
 
     stages {
         
-    //    stage('Cleanup Workspace') {
-    //        steps {
-    //            cleanWs()
-    //            sh """
-    //            echo "Cleaned Up Workspace For Project"
-    //            """
-    //            checkout scm
-    //        }
-    //    }
+        stage('Cleanup Workspace') {
+            steps {
+                // cleanWs()
+                sh """#!/bin/bash
+                set -xe  
+                ls -al
+                """
+                preBuildCleanup()
+                sh """#!/bin/bash
+                set -xe  
+                ls -al
+                """
+                checkout scm
+                sh """#!/bin/bash
+                set -xe  
+                ls -al
+                """
+            }
+        }
 
     //  stage('Code Checkout') {
     //      steps {
