@@ -7,8 +7,10 @@ pipeline {
     // }
 
     agent {
-        docker { image 'cppalliance/boost_superproject_build:24.04-v1' }
-        label 'jenkinspool1'
+        docker {
+          image 'cppalliance/boost_superproject_build:24.04-v1'
+          label 'jenkinspool1'
+          }
     }
 
     options {
