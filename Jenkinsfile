@@ -7,7 +7,7 @@ pipeline {
     // }
 
     agent {
-        docker { image 'ubuntu:24.04' }
+        docker { image 'cppalliance/boost_superproject_build:24.04-v1' }
     }
 
     options {
@@ -19,14 +19,15 @@ pipeline {
 
     stages {
         
-    //    stage('Cleanup Workspace') {
-    //        steps {
-    //            cleanWs()
-    //            sh """
-    //            echo "Cleaned Up Workspace For Project"
-    //            """
-    //        }
-    //    }
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+                sh """
+                echo "Cleaned Up Workspace For Project"
+                """
+                checkout scm
+            }
+        }
 
     //  stage('Code Checkout') {
     //      steps {
@@ -50,6 +51,10 @@ pipeline {
                 whoami || true
                 touch $(date "+%A-%B-%d-%T-%y") || true
                 mount | grep ^/dev/ | grep -v /etc | awk '{print \$3}' || true
+                echo "git branch"
+                git branch
+                echo "git branches"
+                git branch -avv
                 ''' 
             }
         }
