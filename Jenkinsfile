@@ -1,9 +1,13 @@
 pipeline {
 
+    // agent {
+    //     node {
+    //         label 'jenkinspool1'
+    //     }
+    // }
+
     agent {
-        node {
-            label 'jenkinspool1'
-        }
+        docker { image 'ubuntu:24.04' }
     }
 
     options {
@@ -41,6 +45,7 @@ pipeline {
                 pwd
                 env
                 whoami
+                mount | grep ^/dev/ | grep -v /etc | awk '{print $3}' || true
                 """
             }
         }
