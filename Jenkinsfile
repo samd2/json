@@ -19,18 +19,18 @@ pipeline {
             steps {
                 // cleanWs()
                 sh """#!/bin/bash
-                set -xe  
-                ls -al
+                echo "before cleanup"
+                ls -al || true
                 """
-                preBuildCleanup()
+                // preBuildCleanup()
                 sh """#!/bin/bash
-                set -xe  
-                ls -al
+                echo "right after cleanup and before scm cleanup"
+                ls -al || true
                 """
                 checkout scm
                 sh """#!/bin/bash
-                set -xe  
-                ls -al
+                echo "right after scm"
+                ls -al || true
                 """
             }
         }
