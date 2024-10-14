@@ -51,6 +51,7 @@ pipeline {
                 anyOf{
                     branch 'develop'
                     branch 'master'
+                    }
             }
             steps {
                 sh '''#!/bin/bash
