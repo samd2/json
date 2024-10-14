@@ -81,7 +81,8 @@ pipeline {
                 chmod 755 linuxdocs.sh
                 ./linuxdocs.sh --boostrootsubdir --skip-packages
                 '''
-                s3Upload(bucket:"cppalliance-websites", path:"${BRANCH_NAME}.${DNSREPONAME}.cpp.al", includePathPattern:'boost-root/libs/${REPONAME}/doc/html/**', profile:"cppalliance-bot-profile")
+                // s3Upload(bucket:"cppalliance-websites", path:"${BRANCH_NAME}.${DNSREPONAME}.cpp.al", includePathPattern:'boost-root/libs/${REPONAME}/doc/html/**', profile:"cppalliance-bot-profile")
+                s3Upload( entries [[ bucket:"cppalliance-websites/${BRANCH_NAME}.${DNSREPONAME}.cpp.al", sourcefile:'boost-root/libs/${REPONAME}/doc/html/**', selectedregion: "us-east-1" ]], profilename:"cppalliance-bot-profile")
             }
         }
     }
