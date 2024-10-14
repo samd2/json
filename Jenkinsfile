@@ -82,7 +82,7 @@ pipeline {
                 ./linuxdocs.sh --boostrootsubdir --skip-packages
                 '''
                 // s3Upload(bucket:"cppalliance-websites", path:"${BRANCH_NAME}.${DNSREPONAME}.cpp.al", includePathPattern:'boost-root/libs/${REPONAME}/doc/html/**', profile:"cppalliance-bot-profile")
-                s3Upload( entries [[ bucket:"cppalliance-websites/${BRANCH_NAME}.${DNSREPONAME}.cpp.al", selectedRegion: 'us-east-1', sourceFile: 'boost-root/libs/${REPONAME}/doc/html/**' ]], profilename:"cppalliance-bot-profile")
+                s3Upload( entries [[ bucket:"cppalliance-websites/${BRANCH_NAME}.${DNSREPONAME}.cpp.al", selectedRegion: 'us-east-1', sourceFile: "boost-root/libs/${REPONAME}/doc/html/**" ]], profileName: "cppalliance-bot-profile")
             }
         }
     }
