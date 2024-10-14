@@ -14,7 +14,7 @@ pipeline {
     }
 
     stages {
-        
+
          stage('Preclean Workspace') {
              steps {
                  sh """#!/bin/bash
@@ -24,11 +24,25 @@ pipeline {
                  checkout scm
              }
          }
+         stage('Set Variables') {
+             steps {
+                sh '''#!/bin/bash -xe
+                echo "" > jenkinsjobinfo.sh
+                REPONAME=$(basename `git rev-parse --show-toplevel`)
+                DNSREPONAME=$(echo $REPONAME | tr '_' '-')
+                ORGANIZATION=$(basename $(dirname "${GIT_URL}"))
+                echo "REPONAME=${REPONAME}" >> jenkinsjobinfo.sh
+                echo "DNSREPONAME=${DNSREPONAME}" >> jenkinsjobinfo.sh
+                echo "ORGANIZATION=${ORGANIZATION}" >> jenkinsjobinfo.sh
+                '''
+             }
+         }
 
         stage('Diagnostics') {
             steps {
                 sh '''#!/bin/bash
                 set -xe
+                 . jenkinsjobinfo.sh
                 ls -al || true
                 cat /etc/os-release || true
                 echo "Running Unit Tests" || true
@@ -41,7 +55,7 @@ pipeline {
                 git branch
                 echo "git branches"
                 git branch -avv
-                ''' 
+                '''
             }
         }
 
@@ -57,42 +71,18 @@ pipeline {
                 sh '''#!/bin/bash
                 set -xe
 
+                . jenkinsjobinfo.sh
                 export pythonvirtenvpath=/opt/venvboostdocs
                 if [ -f ${pythonvirtenvpath}/bin/activate ]; then
                     source ${pythonvirtenvpath}/bin/activate
-                fi 
-                
-                if false ; then
-                    echo "Starting check to see if docs have been updated."
-                    git fetch origin
-                    mergebase=$(git merge-base HEAD remotes/origin/develop)
-                    counter=0
-                    for i in $(git diff --name-only HEAD $mergebase)
-                    do
-                      echo "file is $i"
-                      if [[ $i =~ ^doc/ ]]; then
-                        counter=$((counter+1))
-                      fi
-                    done
-                
-                    if [ "$counter" -eq "0" ]; then
-                      echo "No docs found. Exiting."
-                      exit 1
-                    else
-                      echo "Found $counter docs. Proceeding."
-                    fi
                 fi
-                
-                # testing:
-                # curl -s -S --retry 10 -L -o linuxdocs.sh https://github.com/boostorg/release-tools/raw/develop/build_docs/linuxdocs.sh
-                curl -s -S --retry 10 -L -o linuxdocs.sh https://github.com/sdarwin/release-tools/raw/build_docs8/build_docs/linuxdocs.sh
+
+                curl -s -S --retry 10 -L -o linuxdocs.sh https://github.com/boostorg/release-tools/raw/develop/build_docs/linuxdocs.sh
                 chmod 755 linuxdocs.sh
                 ./linuxdocs.sh --boostrootsubdir --skip-packages
-                ''' 
+                '''
+                s3Upload(bucket:"cppalliance-websites", path:"${BRANCH_NAME}.${DNSREPONAME}.cpp.al", includePathPattern:'boost-root/libs/${REPONAME}/doc/html/**', profile:"cppalliance-bot-profile")
             }
         }
-
-    }   
-
+    }
 }
-
