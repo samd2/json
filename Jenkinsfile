@@ -25,17 +25,7 @@ pipeline {
              }
          }
 
-    //  stage('Code Checkout') {
-    //      steps {
-    //          checkout([
-    //              $class: 'GitSCM', 
-    //              branches: [[name: '*/main']], 
-    //              userRemoteConfigs: [[url: 'https://github.com/spring-projects/spring-petclinic.git']]
-    //          ])
-    //      }
-    //  }
-
-        stage('Unit Testing') {
+        stage('Diagnostics') {
             steps {
                 sh '''#!/bin/bash
                 set -xe
@@ -56,23 +46,48 @@ pipeline {
         }
 
 
-        stage('Deploy To Staging and Pre-Prod Code') {
+        stage('Build develop or master branch') {
             when {
-                branch 'develop'
+                anyOf{
+                    branch 'develop'
+                    branch 'master'
             }
             steps {
                 sh '''#!/bin/bash
                 set -xe
-                echo "Building Artifact for Staging and Pre-Prod Environments"
-                env
-                mount | grep ^/dev/ | grep -v /etc | awk '{print ${3}}' || true
-                '''
-                sh """
-                echo "Deploying to Staging Environment"
-                """
-                sh """
-                echo "Deploying to Pre-Prod Environment"
-                """
+
+                export pythonvirtenvpath=/opt/venvboostdocs
+                if [ -f ${pythonvirtenvpath}/bin/activate ]; then
+                    source ${pythonvirtenvpath}/bin/activate
+                fi 
+                
+                if false ; then
+                    echo "Starting check to see if docs have been updated."
+                    git fetch origin
+                    mergebase=$(git merge-base HEAD remotes/origin/develop)
+                    counter=0
+                    for i in $(git diff --name-only HEAD $mergebase)
+                    do
+                      echo "file is $i"
+                      if [[ $i =~ ^doc/ ]]; then
+                        counter=$((counter+1))
+                      fi
+                    done
+                
+                    if [ "$counter" -eq "0" ]; then
+                      echo "No docs found. Exiting."
+                      exit 1
+                    else
+                      echo "Found $counter docs. Proceeding."
+                    fi
+                fi
+                
+                # testing:
+                # curl -s -S --retry 10 -L -o linuxdocs.sh https://github.com/boostorg/release-tools/raw/develop/build_docs/linuxdocs.sh
+                curl -s -S --retry 10 -L -o linuxdocs.sh https://github.com/sdarwin/release-tools/raw/build_docs8/build_docs/linuxdocs.sh
+                chmod 755 linuxdocs.sh
+                ./linuxdocs.sh --boostrootsubdir --skip-packages
+                ''' 
             }
         }
 
