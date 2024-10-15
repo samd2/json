@@ -71,8 +71,19 @@ pipeline {
 
             environment {
                 // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
-                REPONAME = 'json'
-                DNSREPONAME = 'json'
+                // REPONAME = 'json'
+                // DNSREPONAME = 'json'
+
+                REPONAME = """${sh(
+                returnStdout: true,
+                script: '. jenkinsjobinfo.sh; echo "${REPONAME}"'
+            )}"""
+                DNSREPONAME = """${sh(
+                returnStdout: true,
+                script: '. jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
+            )}"""
+
+
             }           
 
             steps {
