@@ -89,7 +89,7 @@ pipeline {
              )}"""
                  MYVAR2 = """${sh(
                  returnStdout: true,
-                 script: 'myvar2=$(ls); echo ${myvar2} | sed 's/\s/_/'g'
+                 script: 'myvar2=$(ls); echo ${myvar2} | sed "s/\s/_/"g'
              )}"""
 
 
