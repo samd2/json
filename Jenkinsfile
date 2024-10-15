@@ -71,17 +71,26 @@ pipeline {
 
             environment {
                 // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
-                // REPONAME = 'json'
-                // DNSREPONAME = 'json'
+                REPONAME = 'json'
+                DNSREPONAME = 'json'
 
-                REPONAME = """${sh(
-                returnStdout: true,
-                script: '. jenkinsjobinfo.sh; echo "${REPONAME}"'
-            )}"""
-                DNSREPONAME = """${sh(
-                returnStdout: true,
-                script: '. jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
-            )}"""
+      //           REPONAME = """${sh(
+      //           returnStdout: true,
+      //           script: '. jenkinsjobinfo.sh; echo "${REPONAME}"'
+      //       )}"""
+      //           DNSREPONAME = """${sh(
+      //           returnStdout: true,
+      //           script: '. jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
+      //       )}"""
+
+                 MYVAR1 = """${sh(
+                 returnStdout: true,
+                 script: 'myvar1=$(pwd); echo "${myvar1}"'
+             )}"""
+                 MYVAR2 = """${sh(
+                 returnStdout: true,
+                 script: 'myvar2=$(ls); echo ${myvar2} | sed 's/\s/_/'g'
+             )}"""
 
 
             }           
@@ -90,6 +99,8 @@ pipeline {
                 sh '''#!/bin/bash
                 set -xe
 
+                echo "myvar1 is ${MYVAR1}"
+                echo "myvar2 is ${MYVAR2}"
                 . jenkinsjobinfo.sh
                 export pythonvirtenvpath=/opt/venvboostdocs
                 if [ -f ${pythonvirtenvpath}/bin/activate ]; then
