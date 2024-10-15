@@ -28,6 +28,7 @@ pipeline {
              steps {
                 sh '''#!/bin/bash -xe
                 echo "" > jenkinsjobinfo.sh
+                chmod 777 jenkinsjobinfo.sh
                 REPONAME=$(basename -s .git "$(git config --get remote.origin.url)")
                 # REPONAME=$(basename `git rev-parse --show-toplevel`)
                 DNSREPONAME=$(echo $REPONAME | tr '_' '-')
@@ -76,11 +77,11 @@ pipeline {
 
                  REPONAME = """${sh(
                  returnStdout: true,
-                 script: 'source jenkinsjobinfo.sh; echo "${REPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${REPONAME}"'
              )}"""
                  DNSREPONAME = """${sh(
                  returnStdout: true,
-                 script: 'source jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
              )}"""
 
              //     MYVAR1 = """${sh(
