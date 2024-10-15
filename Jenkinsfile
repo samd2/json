@@ -67,7 +67,8 @@ pipeline {
                     branch 'develop'
                     branch 'master'
                     }
- 
+            } 
+
             environment {
                 // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
                 REPONAME = 'json'
