@@ -69,6 +69,7 @@ pipeline {
                     }
  
             environment {
+                // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
                 REPONAME = 'json'
                 DNSREPONAME = 'json'
             }           
