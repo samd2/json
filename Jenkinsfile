@@ -100,8 +100,8 @@ pipeline {
                 sh '''#!/bin/bash
                 set -xe
 
-                // echo "myvar1 is ${MYVAR1}"
-                // echo "myvar2 is ${MYVAR2}"
+                # echo "myvar1 is ${MYVAR1}"
+                # echo "myvar2 is ${MYVAR2}"
                 . jenkinsjobinfo.sh
                 export pythonvirtenvpath=/opt/venvboostdocs
                 if [ -f ${pythonvirtenvpath}/bin/activate ]; then
