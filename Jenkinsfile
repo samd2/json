@@ -28,7 +28,8 @@ pipeline {
              steps {
                 sh '''#!/bin/bash -xe
                 echo "" > jenkinsjobinfo.sh
-                REPONAME=$(basename `git rev-parse --show-toplevel`)
+                REPONAME=$(basename -s .git "$(git config --get remote.origin.url)")
+                # REPONAME=$(basename `git rev-parse --show-toplevel`)
                 DNSREPONAME=$(echo $REPONAME | tr '_' '-')
                 ORGANIZATION=$(basename $(dirname "${GIT_URL}"))
                 echo "REPONAME=${REPONAME}" >> jenkinsjobinfo.sh
@@ -66,7 +67,12 @@ pipeline {
                     branch 'develop'
                     branch 'master'
                     }
-            }
+ 
+            environment {
+                REPONAME = 'json'
+                DNSREPONAME = 'json'
+            }           
+
             steps {
                 sh '''#!/bin/bash
                 set -xe
