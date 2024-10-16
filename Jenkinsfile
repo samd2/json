@@ -169,7 +169,7 @@ pipeline {
                 }
                 script {
                     def commenter = pullRequest.comment('Test comment 1')
-                    echo ${commenter}
+                    echo "${commenter}"
                     pullRequest.comment('Test comment 2')
                     for (comment in pullRequest.comments) {
                         echo "Author: ${comment.user}, Comment: ${comment.body}"
