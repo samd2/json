@@ -166,7 +166,7 @@ pipeline {
                     s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:'boost-root/libs/${REPONAME}/doc/**')
                 }
                 script {
-                    pullRequest.comment('An automated preview of the documentation is available at [https://${CHANGE_ID}.${DNSREPONAME}.prtest.cppalliance.org/libs/${REPONAME}/doc/html/index.html](https://${CHANGE_ID}.${DNSREPONAME}.prtest.cppalliance.org/libs/${REPONAME}/doc/html/index.html)')
+                    pullRequest.comment('An automated preview of the documentation is available at [https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html](https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html)')
                 }
             }
         }
