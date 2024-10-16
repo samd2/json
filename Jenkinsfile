@@ -102,6 +102,8 @@ pipeline {
                 # ./linuxdocs.sh --boostrootsubdir --skip-packages
                 mkdir -p boost-root/libs/${REPONAME}/doc/html
                 echo "qwerty" > boost-root/libs/${REPONAME}/doc/html/index.html
+                mkdir -p boost-root/doc
+                echo "qwerty" > boost-root/doc/index.html
                 '''
                 }
             }
