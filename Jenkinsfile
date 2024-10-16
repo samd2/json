@@ -100,8 +100,8 @@ pipeline {
                 chmod 755 linuxdocs.sh
                 # Only during testing, skip
                 # ./linuxdocs.sh --boostrootsubdir --skip-packages
-                mkdir -p doc/html
-                echo "qwerty" > doc/html/index.html
+                mkdir -p boost-root/libs/${REPONAME}/doc/html
+                echo "qwerty" > boost-root/libs/${REPONAME}/doc/html/index.html
                 '''
                 }
             }
