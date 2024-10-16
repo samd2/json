@@ -36,7 +36,7 @@ pipeline {
                 echo "REPONAME=${REPONAME}" >> jenkinsjobinfo.sh
                 echo "DNSREPONAME=${DNSREPONAME}" >> jenkinsjobinfo.sh
                 echo "ORGANIZATION=${ORGANIZATION}" >> jenkinsjobinfo.sh
-                echo "JENKINS_CI_REPO=https://github.com/sdarwin/jenkins-test" >> jenkinsjobinfo.sh
+                echo "JENKINS_CI_REPO=sdarwin/jenkins-test" >> jenkinsjobinfo.sh
                 '''
             }
         }
@@ -76,7 +76,7 @@ pipeline {
                 sh '''#!/bin/bash
                 set -xe
                 . jenkinsjobinfo.sh
-                curl -o jenkins_prebuild_script.sh ${JENKINS_CI_REPO}/scripts/${ORGANIZATION}_${REPONAME}_prebuild.sh || true
+                curl -f -o jenkins_prebuild_script.sh https://raw.githubusercontent.com/${JENKINS_CI_REPO}/master/scripts/${ORGANIZATION}_${REPONAME}_prebuild.sh || true
                 if [ -f jenkins_prebuild_script.sh ]; then
                     chmod 755 jenkins_prebuild_script.sh
                     ./jenkins_prebuild_script.sh
@@ -128,7 +128,7 @@ pipeline {
                 set -xe
 
                 . jenkinsjobinfo.sh
-                curl -o jenkins_postbuild_script.sh ${JENKINS_CI_REPO}/scripts/${ORGANIZATION}_${REPONAME}_postbuild.sh || true
+                curl -f -o jenkins_postbuild_script.sh https://raw.githubusercontent.com/${JENKINS_CI_REPO}/master/scripts/${ORGANIZATION}_${REPONAME}_postbuild.sh || true
                 if [ -f jenkins_postbuild_script.sh ]; then
                     chmod 755 jenkins_postbuild_script.sh
                     ./jenkins_postbuild_script.sh
