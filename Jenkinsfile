@@ -165,7 +165,7 @@ pipeline {
                     s3Upload(bucket:"cppalliance-previews", path:"${REPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:'boost-root/libs/${REPONAME}/doc/**')
                 }
                 script {
-                    def comment = pullRequest.comment('Test comment')
+                    def commenter = pullRequest.comment('Test comment')
                     for (comment in pullRequest.comments) {
                         echo "Author: ${comment.user}, Comment: ${comment.body}"
                     }
