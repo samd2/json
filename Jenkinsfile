@@ -44,7 +44,8 @@ pipeline {
                 sh '''#!/bin/bash
                 set -x
                 # not set -e. errors may occur in diagnostics
-                 . jenkinsjobinfo.sh
+                cat jenkinsjobinfo.sh
+                . jenkinsjobinfo.sh
                 ls -al
                 cat /etc/os-release
                 pwd
@@ -74,11 +75,11 @@ pipeline {
                 // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
                  REPONAME = """${sh(
                  returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${REPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${REPONAME}"'
              )}"""
                  DNSREPONAME = """${sh(
                  returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${DNSREPONAME}"'
              )}"""
 
             }           
@@ -120,11 +121,11 @@ pipeline {
 
                  REPONAME = """${sh(
                  returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${REPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${REPONAME}"'
              )}"""
                  DNSREPONAME = """${sh(
                  returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${DNSREPONAME}"'
              )}"""
 
             }
@@ -151,11 +152,11 @@ pipeline {
 
                  REPONAME = """${sh(
                  returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${REPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${REPONAME}"'
              )}"""
                  DNSREPONAME = """${sh(
                  returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${DNSREPONAME}"'
+                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${DNSREPONAME}"'
              )}"""
 
             }
@@ -166,7 +167,7 @@ pipeline {
                     s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:"boost-root/libs/${REPONAME}/doc/**")
                 }
                 script {
-                    pullRequest.comment("${CHANGE_ID} An automated preview of the documentation is available at [https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html](https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html)")
+                    pullRequest.comment("An automated preview of the documentation is available at [https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html](https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html)")
                 }
             }
         }
