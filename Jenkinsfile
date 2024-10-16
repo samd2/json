@@ -163,8 +163,12 @@ pipeline {
 
             steps {
                 withAWS(region:'us-east-1', credentials: 'cppalliance-bot-aws-user') {
-                    s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/doc", includePathPattern:"boost-root/doc/**")
-                    s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:"boost-root/libs/${REPONAME}/doc/**")
+
+                    s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/doc/",  workingDir: "boost-root/doc" , includePathPattern:"**")
+                    // s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/doc/",  workingDir: "boost-root/doc" , includePathPattern:"**/*")
+                    s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc/", workingDir: "boost-root/libs/${REPONAME}/doc", includePathPattern:"**")
+                    // s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc/", workingDir: "boost-root/libs/${REPONAME}/doc", includePathPattern:"**/*")
+
                 }
                 script {
                     pullRequest.comment("An automated preview of the documentation is available at [https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html](https://${env.CHANGE_ID}.${env.DNSREPONAME}.prtest.cppalliance.org/libs/${env.REPONAME}/doc/html/index.html)")
