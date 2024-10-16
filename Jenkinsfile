@@ -99,7 +99,9 @@ pipeline {
 
                 curl -s -S --retry 10 -L -o linuxdocs.sh https://github.com/boostorg/release-tools/raw/develop/build_docs/linuxdocs.sh
                 chmod 755 linuxdocs.sh
-                ./linuxdocs.sh --boostrootsubdir --skip-packages
+                # Only during testing, skip
+                # ./linuxdocs.sh --boostrootsubdir --skip-packages
+                echo "qwerty" > doc/html/index.html
                 '''
                 }
             }
@@ -160,7 +162,7 @@ pipeline {
             }
 
             steps {
-                withAWS(region:'eu-east-1', credentials: 'cppalliance-bot-aws-user') {
+                withAWS(region:'us-east-1', credentials: 'cppalliance-bot-aws-user') {
                     s3Upload(bucket:"cppalliance-previews", path:"${REPONAME}/${CHANGE_ID}/doc", includePathPattern:'boost-root/doc/**')
                     s3Upload(bucket:"cppalliance-previews", path:"${REPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:'boost-root/libs/${REPONAME}/doc/**')
                 }
