@@ -23,6 +23,7 @@ pipeline {
                 checkout scm
             }
         }
+
         stage('Set Variables') {
             steps {
                 sh '''#!/bin/bash -xe
@@ -35,6 +36,7 @@ pipeline {
                 echo "REPONAME=${REPONAME}" >> jenkinsjobinfo.sh
                 echo "DNSREPONAME=${DNSREPONAME}" >> jenkinsjobinfo.sh
                 echo "ORGANIZATION=${ORGANIZATION}" >> jenkinsjobinfo.sh
+                echo "JENKINS_CI_REPO=https://github.com/sdarwin/jenkins-test" >> jenkinsjobinfo.sh
                 '''
             }
         }
@@ -62,6 +64,26 @@ pipeline {
             }
         }
 
+        stage('Prebuild script') {
+            when {
+                anyOf{
+                    branch 'develop'
+                    branch 'master'
+                    expression { env.CHANGE_ID != null }
+                }
+           } 
+            steps {
+                sh '''#!/bin/bash
+                set -xe
+                . jenkinsjobinfo.sh
+                curl -o jenkins_prebuild_script.sh ${JENKINS_CI_REPO}/scripts/${ORGANIZATION}_${REPONAME}_prebuild.sh || true
+                if [ -f jenkins_prebuild_script.sh ]; then
+                    ./jenkins_prebuild_script.sh
+                fi
+                '''
+            }
+         }
+
         stage('Build docs') {
             when {
                 anyOf{
@@ -71,25 +93,9 @@ pipeline {
                 }
             } 
 
-            environment {
-                // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
-                 REPONAME = """${sh(
-                 returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${REPONAME}"'
-             )}"""
-                 DNSREPONAME = """${sh(
-                 returnStdout: true,
-                 script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${DNSREPONAME}"'
-             )}"""
-
-            }           
-
             steps {
                 sh '''#!/bin/bash
                 set -xe
-
-                # echo "myvar1 is ${MYVAR1}"
-                # echo "myvar2 is ${MYVAR2}"
                 . jenkinsjobinfo.sh
                 export pythonvirtenvpath=/opt/venvboostdocs
                 if [ -f ${pythonvirtenvpath}/bin/activate ]; then
@@ -108,6 +114,27 @@ pipeline {
                 }
             }
 
+        stage('Postbuild script') {
+            when {
+                anyOf{
+                    branch 'develop'
+                    branch 'master'
+                    expression { env.CHANGE_ID != null }
+                }
+           }
+            steps {
+                sh '''#!/bin/bash
+                set -xe
+
+                . jenkinsjobinfo.sh
+                curl -o jenkins_postbuild_script.sh ${JENKINS_CI_REPO}/scripts/${ORGANIZATION}_${REPONAME}_postbuild.sh || true
+                if [ -f jenkins_postbuild_script.sh ]; then
+                    ./jenkins_postbuild_script.sh
+                fi
+                '''
+            }
+         }
+
         stage('Main branches: Upload to S3') {
             when {
                 anyOf{
@@ -118,9 +145,6 @@ pipeline {
 
             environment {
                 // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
-                // REPONAME = 'json'
-                // DNSREPONAME = 'json'
-
                  REPONAME = """${sh(
                  returnStdout: true,
                  script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo -n "${REPONAME}"'
@@ -177,5 +201,30 @@ pipeline {
                 }
             }
         }
+
+        stage('Post Diagnostics') {
+            steps {
+                sh '''#!/bin/bash
+                set -x
+                # not set -e. errors may occur in diagnostics
+                cat jenkinsjobinfo.sh
+                . jenkinsjobinfo.sh
+                ls -al
+                cat /etc/os-release
+                pwd
+                env
+                whoami
+                touch $(date "+%A-%B-%d-%T-%y") || true
+                mount | grep ^/dev/ | grep -v /etc | awk '{print \$3}' || true
+                echo "git branch"
+                git branch
+                echo "git branches"
+                git branch -avv
+                true
+                '''
+            }
+        }
+
+
     }
 }
