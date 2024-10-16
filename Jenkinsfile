@@ -78,6 +78,7 @@ pipeline {
                 . jenkinsjobinfo.sh
                 curl -o jenkins_prebuild_script.sh ${JENKINS_CI_REPO}/scripts/${ORGANIZATION}_${REPONAME}_prebuild.sh || true
                 if [ -f jenkins_prebuild_script.sh ]; then
+                    chmod 755 jenkins_prebuild_script.sh
                     ./jenkins_prebuild_script.sh
                 fi
                 '''
@@ -129,6 +130,7 @@ pipeline {
                 . jenkinsjobinfo.sh
                 curl -o jenkins_postbuild_script.sh ${JENKINS_CI_REPO}/scripts/${ORGANIZATION}_${REPONAME}_postbuild.sh || true
                 if [ -f jenkins_postbuild_script.sh ]; then
+                    chmod 755 jenkins_postbuild_script.sh
                     ./jenkins_postbuild_script.sh
                 fi
                 '''
