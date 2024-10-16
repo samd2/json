@@ -42,20 +42,21 @@ pipeline {
         stage('Diagnostics') {
             steps {
                 sh '''#!/bin/bash
-                set -xe
+                set -x
+                # not set -e. errors may occur in diagnostics
                  . jenkinsjobinfo.sh
-                ls -al || true
-                cat /etc/os-release || true
-                echo "Running Unit Tests" || true
-                pwd || true
-                env || true
-                whoami || true
+                ls -al
+                cat /etc/os-release
+                pwd
+                env 
+                whoami
                 touch $(date "+%A-%B-%d-%T-%y") || true
                 mount | grep ^/dev/ | grep -v /etc | awk '{print \$3}' || true
                 echo "git branch"
                 git branch
                 echo "git branches"
                 git branch -avv
+                true
                 '''
             }
         }
@@ -71,9 +72,6 @@ pipeline {
 
             environment {
                 // See https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
-                // REPONAME = 'json'
-                // DNSREPONAME = 'json'
-
                  REPONAME = """${sh(
                  returnStdout: true,
                  script: '#!/bin/bash \n' + 'source jenkinsjobinfo.sh; echo "${REPONAME}"'
@@ -164,16 +162,11 @@ pipeline {
 
             steps {
                 withAWS(region:'us-east-1', credentials: 'cppalliance-bot-aws-user') {
-                    s3Upload(bucket:"cppalliance-previews", path:"${REPONAME}/${CHANGE_ID}/doc", includePathPattern:'boost-root/doc/**')
-                    s3Upload(bucket:"cppalliance-previews", path:"${REPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:'boost-root/libs/${REPONAME}/doc/**')
+                    s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/doc", includePathPattern:'boost-root/doc/**')
+                    s3Upload(bucket:"cppalliance-previews", path:"${DNSREPONAME}/${CHANGE_ID}/libs/${REPONAME}/doc", includePathPattern:'boost-root/libs/${REPONAME}/doc/**')
                 }
                 script {
-                    def commenter = pullRequest.comment('Test comment 1')
-                    echo "${commenter}"
-                    pullRequest.comment('Test comment 2')
-                    for (comment in pullRequest.comments) {
-                        echo "Author: ${comment.user}, Comment: ${comment.body}"
-                    }
+                    pullRequest.comment('An automated preview of the documentation is available at [https://${CHANGE_ID}.${DNSREPONAME}.prtest.cppalliance.org/libs/${REPONAME}/doc/html/index.html](https://${CHANGE_ID}.${DNSREPONAME}.prtest.cppalliance.org/libs/${REPONAME}/doc/html/index.html)')
                 }
             }
         }
