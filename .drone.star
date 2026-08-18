@@ -224,6 +224,7 @@ def generate(
                 buildtype=buildtype,
                 buildscript=buildscript,
                 environment=environment,
+                node={'env': 'win2025'},
                 globalenv=globalenv)
         elif job['os'] == 'macos':
             job_spec = osx_cxx(
