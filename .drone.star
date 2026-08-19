@@ -17,8 +17,15 @@ def main(ctx):
     cmake_env = {'CMAKE_VERSION': '3.8.2'}
 
     return generate(
-        ['gcc >=4.9', 'clang >=3.8', 'msvc >=14.0', 'apple-clang >=13.4'],
+        # TEMPORARY: only the two oldest MSVC versions (14.0/VS2015 and
+        # 14.1/VS2017) are built while the Windows images are being tested.
+        # To revert, restore the commented-out line below.
+        # ['gcc >=4.9', 'clang >=3.8', 'msvc >=14.0', 'apple-clang >=13.4'],
+        ['gcc >=4.9', 'clang >=3.8', 'msvc >=14.0 <=14.1', 'apple-clang >=13.4'],
         '>=11',
+        # TEMPORARY: uncomment to additionally skip Linux/macOS/FreeBSD jobs
+        # and only run the Windows ones.
+        oses=['windows'],
         globalenv=globalenv,
         overrides=[
             { 'match': {'compiler': 'gcc ~8'},
