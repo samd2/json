@@ -223,6 +223,9 @@ def generate(
 
         privileged = job.get('privileged')
 
+        # add below into win job
+        # node={'env': 'win2025'},
+
         if job['os'] == 'windows':
             job_spec = windows_cxx(
                 job['name'],
@@ -231,7 +234,6 @@ def generate(
                 buildtype=buildtype,
                 buildscript=buildscript,
                 environment=environment,
-                node={'env': 'win2025'},
                 globalenv=globalenv)
         elif job['os'] == 'macos':
             job_spec = osx_cxx(
