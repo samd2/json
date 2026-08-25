@@ -233,6 +233,7 @@ def generate(
                 image=job['image'],
                 buildtype=buildtype,
                 buildscript=buildscript,
+                node={'env': 'win2025'},
                 environment=environment,
                 globalenv=globalenv)
         elif job['os'] == 'macos':
