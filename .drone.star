@@ -25,7 +25,7 @@ def main(ctx):
         '>=11',
         # TEMPORARY: uncomment to additionally skip Linux/macOS/FreeBSD jobs
         # and only run the Windows ones.
-        oses=['windows'],
+        # oses=['windows'],
         globalenv=globalenv,
         overrides=[
             { 'match': {'compiler': 'gcc ~8'},
@@ -233,7 +233,6 @@ def generate(
                 image=job['image'],
                 buildtype=buildtype,
                 buildscript=buildscript,
-                node={'env': 'win2025'},
                 environment=environment,
                 globalenv=globalenv)
         elif job['os'] == 'macos':
