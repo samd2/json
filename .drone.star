@@ -225,6 +225,7 @@ def generate(
 
         # add below into win job
         # node={'env': 'win2025'},
+        # node={'test': 'true'},
 
         if job['os'] == 'windows':
             job_spec = windows_cxx(
@@ -264,6 +265,7 @@ def generate(
                 buildscript=buildscript,
                 buildtype=buildtype,
                 image=job['image'],
+                node={'test': 'true'},
                 environment=environment,
                 arch=arch,
                 globalenv=globalenv,
